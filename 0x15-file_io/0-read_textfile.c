@@ -1,4 +1,4 @@
-#include "main.h"
+#include "holberton.h"
 
 /**
  * read_textfile - reads a text file and prints it to the standard output
@@ -10,8 +10,8 @@
 ssize_t read_textfile(const char *filename, size_t letters)
 {
 	int fd;
-	int amount, tot;
-	char *bufferc;
+	int s, t;
+	char *buf;
 
 	if (!filename)
 		return (0);
@@ -20,27 +20,27 @@ ssize_t read_textfile(const char *filename, size_t letters)
 	if (fd < 0)
 		return (0);
 
-	bufferc = malloc(sizeof(char) * letters);
-	if (!bufferc)
+	buf = malloc(sizeof(char) * letters);
+	if (!buf)
 		return (0);
 
-	amount = read(fd, bufferc, letters);
-	if (amount < 0)
+	s = read(fd, buf, letters);
+	if (s < 0)
 	{
-		free(bufferc);
+		free(buf);
 		return (0);
 	}
-	bufferc[amount] = '\0';
+	buf[s] = '\0';
 
 	close(fd);
 
-	tot = write(STDERR_FILENO, bufferc, amount);
-	if (tot < 0)
+	t = write(STDOUT_FILENO, buf, s);
+	if (t < 0)
 	{
-		free(bufferc);
+		free(buf);
 		return (0);
 	}
 
-	free(bufferc);
-	return (tot);
+	free(buf);
+	return (t);
 }
