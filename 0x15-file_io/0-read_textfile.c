@@ -34,7 +34,7 @@ ssize_t read_textfile(const char *filename, size_t letters)
 
 	close(fd);
 
-	tot = write(1, bufferc, amount);
+	tot = write(STDERR_FILENO, bufferc, amount);
 	if (tot < 0)
 	{
 		free(bufferc);
